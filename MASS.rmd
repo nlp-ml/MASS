@@ -1,0 +1,108 @@
+---
+title: "MASS"
+author: "Alvinkim"
+date: "2023-06-26"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+#변수명	변수설명
+
+#Sex	성별: 범주형, 암컷(“F”), 수컷(“M”)
+#Bwt	몸무게(kg)
+#Hwt	심장의 무게(g)
+
+```{r}
+library(MASS) #MASS 패키지를 로드
+head(cats) #cats 데이타 프레임의 앞 줄 보기
+```
+#1.고양이 자료(cats)의 자료의 수를 구하시오.
+```{r}
+nrow(cats)
+```
+#2.고양이의 몸무게와 심장의 무게의 평균과 표준편차를 구하시오.
+```{r}
+mean(cats$Bwt) #몸무게의 평균
+```
+```{r}
+sd(cats$Bwt) #몸무게의 표준편차
+```
+```{r}
+mean(cats$Hwt) #고양이 심장무게 평균
+```
+```{r}
+sd(cats$Hwt) #고양이 심장 무개 표준편차
+```
+#3.고양이의 암수별 몸무게와 심장의 무게의 평균과 표준편차를 각각 구하시오.
+
+```{r}
+cats_f = subset(cats,Sex=="F")
+cats_m = subset(cats,Sex=="M")
+
+mean(cats_f$Bwt) #암컷 몸무게의 평균
+sd(cats_f$Bwt) #암컷 몸무게의 표준편차
+mean(cats_f$Hwt) #암컷 심장의 무게평균
+sd(cats_f$Hwt) #암컷 심장의 표준편차
+mean(cats_m$Bwt) #수컷 몸무게의 평균
+sd(cats_m$Bwt) #수컷 몸무게의 표준편차
+mean(cats_m$Hwt) #수컷 심장의 무게평균
+sd(cats_m$Hwt) #수컷 심장의 표준편차
+
+```
+```{r}
+aggregate(Bwt~Sex,cats,mean) #암수별 몸무게의 평균
+```
+```{r}
+aggregate(Bwt~Sex, cats, sd)      # 암수별 몸무게의 표준편차
+```
+
+```{r}
+aggregate(Hwt~Sex, cats, mean)    # 암수별 심장의 무게평균
+```
+```{r}
+aggregate(Hwt~Sex, cats, sd)      # 암수별 심장의 무게 표준편차
+```
+
+#4.고양이의 몸무게를 암수별로 상자그림을 그리시오(한 화면에)
+
+```{r}
+boxplot(Bwt~Sex,cats,ylab="고양이의 몸무게")
+```
+#5.고양이의 몸무게와 심장의 무게에 대한 산점도를 그리시오.
+```{r}
+plot(cats$Bwt, cats$Hwt, xlab="몸무게(kg)", ylab="심장의 무게(g)", pch=20)
+```
+
+
+
+
+#6 고양이의 몸무게와 심장의 무게에 대한 산점도를 아래와 같이 그리시오.
+
+```{r}
+plot(cats$Bwt, cats$Hwt, xlab="몸무게(kg)", ylab="심장의 무게(g)", 
+    col=c("red", "blue")[cats$Sex], pch=20)
+legend("topleft", legend = c("암컷","수컷"), col=c("red", "blue"), pch=20)
+```
+
+#생쥐의 몸무게(x)와 심장의 무게(y )의 관계는 아래와 같은 직선관계가 있다고 알려져 있다. 
+#이 직선을 함께 그리시요.
+```{r}
+plot(cats$Bwt, cats$Hwt, xlab="몸무게(kg)", ylab="심장의 무게(g)", 
+    col=c("red", "blue")[cats$Sex], pch=20)
+legend("topleft", legend = c("암컷","수컷"), col=c("red", "blue"), pch=20)
+abline(a=-0.36, b=4, lty=2)
+```
+
+
+
+
+
+
+
+
+
