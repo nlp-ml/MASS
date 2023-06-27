@@ -2,7 +2,6 @@
 title: "MASS"
 author: "Alvinkim"
 date: "2023-06-26"
-output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
